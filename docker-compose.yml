@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+    - "80:80"
+    volumes:
+      # Recargaplus statics
+      - /home/itrecargatodo/Apps/recargaplus/public/static:/www/recargaplus/static
+      - /home/itrecargatodo/Logs/nginx/recargaplus/:/logs/nginx
+      # Chispale Statics & Logs
+      - /home/itrecargatodo/Apps/chispale/public/static:/www/chispale/static
+      - /home/itrecargatodo/Logs/nginx/chispale/:/logs/nginx
+
+    networks:
+      - default
+      - recargaplus
+      - chispale
+
+networks:
+  recargaplus:
+    external: true
+  chispale:
+    external: true
